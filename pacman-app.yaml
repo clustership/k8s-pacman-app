@@ -1,4 +1,26 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: pacman-app
+---
+apiVersion: v1
+data:
+  host: aHR0cHM6Ly9hYXAtY29udHJvbGxlci1hbnNpYmxlLWF1dG9tYXRpb24tcGxhdGZvcm0uYXBwcy5pcGktYm0tZGVtbzAyLmNsdXN0ZXJzaGlwLmNvbQ==
+  token: VWVWMGVOc0V4QmFwT3dNRnVKbEdIMWxsUlRjYTFu
+kind: Secret
+metadata:
+  annotations:
+    credential-hash: q2dMO+qSyaUsiUjuS5pyeVygwcKcfVnNGpa6SKmMKcE=
+  creationTimestamp: "2022-04-08T13:28:26Z"
+  labels:
+    cluster.open-cluster-management.io/credentials: ""
+    cluster.open-cluster-management.io/type: ans
+  name: aap2-secrets
+  namespace: pacman-app
+type: Opaque
+---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Channel
 metadata:
@@ -10,7 +32,7 @@ metadata:
     apps.open-cluster-management.io/github-path: deploy
 spec:
   type: GitHub
-  pathname: https://github.com/mdelder/k8s-pacman-app.git
+  pathname: https://github.com/clustership/k8s-pacman-app.git
   # secretRef:
   #   name: github-credentials
 ---
@@ -44,7 +66,7 @@ metadata:
 spec:
   channel: pacman-app/pacman-app-latest
   hooksecretref:
-    name: toweraccess
+    name: aap-cred-2
   placement:
     placementRef:
       kind: PlacementRule
@@ -62,12 +84,11 @@ spec:
   clusterSelector:
     clusterReplicas: 2
     matchExpressions:
-    - key: region
+    - key: 5g
       operator: In
       values:
-      - us-east-1
-      - us-west-1
-      - europe-west3
-    matchLabels:
-      environment: dev
-      apps/pacman: deployed
+      - "true"
+      - maybe
+    # matchLabels:
+    #   environment: dev
+    #   apps/pacman: deployed

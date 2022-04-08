@@ -2,7 +2,7 @@
 apiVersion: tower.ansible.com/v1alpha1
 kind: AnsibleJob
 metadata:
-  name: snow-create-change-record
+  name: update-open5gs
   namespace: pacman-app
   labels:
     app.kubernetes.io/name: pacman
@@ -12,4 +12,4 @@ spec:
     app_namespace: open5gs-demo-acm
     service_account: 5gcore
   job_template_name: "Update open5gs deployment"
-  tower_auth_secret: aap-cred-2
+  tower_auth_secret: aap2-secrets
